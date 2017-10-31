@@ -14,6 +14,7 @@ call cross-env ^
   WEB3= ^# Node endpoint (default is http://127.0.0.1:8545)
   GAS_LIMIT= ^# Gas limit (default is 4100000)
   GAS_PRICE= ^# Gas price (default is 1000000000)
+  DEBUG=*,-ACE:VERB ^# setup output channels 
   babel-node app.js %1
 ```
 
