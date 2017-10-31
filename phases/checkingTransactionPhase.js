@@ -8,7 +8,7 @@ export default class CheckingTransactionPhase extends Phase {
     
     if(tx && tx.blockHash) {
       // if(parseInt(tx.status)) {
-      const success = !tx.status || !!parseInt(tx.status)
+      const success = typeof tx.status === "undefined" || !!parseInt(tx.status)
 
       db.get('mintingHistory').push({
         accounts: state.mintData.accounts,

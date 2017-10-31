@@ -30,7 +30,7 @@ const commands = {
   check: async function (context) {
     console.log('test')
     const tx2 = await context.web3.eth.getTransactionReceipt('0x2f6c3de715b40dac1f6892bf4f98d1d0d964793d6569e6d4c35909498cc5b1a7')
-    console.log(`status: ${!tx2.status || !!parseInt(tx2.status)}`)
+    console.log(`status: ${typeof tx2.status === "undefined" || !!parseInt(tx2.status)}`)
     console.log(`events count: ${tx2.logs.length}`)
 
     delete tx2.logs;
