@@ -27,14 +27,13 @@ function saveState({state, db, log}) {
 }
 
 const commands = {
-  check: async function (context) {
-    console.log('test')
-    const tx2 = await context.web3.eth.getTransactionReceipt('0x2f6c3de715b40dac1f6892bf4f98d1d0d964793d6569e6d4c35909498cc5b1a7')
-    console.log(`status: ${typeof tx2.status === "undefined" || !!parseInt(tx2.status)}`)
-    console.log(`events count: ${tx2.logs.length}`)
+  check: async function ({log, web3}) {
+    const tx2 = await web3.eth.getTransactionReceipt('0x2f6c3de715b40dac1f6892bf4f98d1d0d964793d6569e6d4c35909498cc5b1a7')
+    log.info(`status: ${typeof tx2.status === "undefined" || !!parseInt(tx2.status)}`)
+    log.info(`events count: ${tx2.logs.length}`)
 
     delete tx2.logs;
-    console.log(tx2);
+    log.verb(tx2);
   },
   loop: async function (context) {
     try {
@@ -84,7 +83,6 @@ async function run() {
     ERRORS
   }
 
-  console.log(process.argv)
   if (process.argv.length > 2) {
     commands[process.argv[2]](context);
   } else {

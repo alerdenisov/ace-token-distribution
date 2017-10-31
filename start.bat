@@ -3,4 +3,5 @@ call cross-env ^
   FROM_ADDRESS=0xb2b0f2baff7ddf8a80c47e81b3d37d4f6b5bf944 ^
   DISTRIBUTION_ADDRESS=0x64b8f33eb65b32eeedae05897242e05201a702f8 ^
   TOKEN_ADDRESS=0x1e43d5fb884ce58e332cb6ad8b21f16a4a0f135b ^
+  DEBUG=*,-ACE:VERB ^
   babel-node app.js %1
