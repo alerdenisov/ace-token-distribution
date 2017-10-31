@@ -5,19 +5,6 @@ import Web3 from 'web3'
 import ethTransaction from 'ethereumjs-tx'
 import utils from 'ethereumjs-util'
 
-// const fetch = require('node-fetch')
-// const Web3 = require('web3')
-// const ethtx = require('ethereumjs-tx')
-// const ethutil = require('ethereumjs-util')
-// const ethwallet = require('ethereumjs-wallet')
-// const chalk = require('chalk')
-// const log = require('./lib/log.js')
-// const low = require('lowdb')
-// const FileSync = require('lowdb/adapters/FileSync')
-// const adapter = new FileSync('db.json')
-// const db = low(adapter)
-// const sha256 = require('js-sha256').sha256;
-
 import lowdb from 'lowdb'
 import FileSync from 'lowdb/adapters/FileSync'
 import { sha256 } from 'js-sha256'
