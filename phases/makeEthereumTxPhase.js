@@ -20,17 +20,6 @@ export default class MakeEthereumTxPhase extends Phase {
     tx.to = to
     tx.data = data
 
-    // const rawTx = {
-    //   // call for nonce
-    //   nonce,
-    //   gasPrice,
-    //   gasLimit,
-    //   to,
-    //   data,
-    // }
-
-    console.log(rawTx)
-
     tx.sign(privateKey)
 
     const raw = `0x${tx.serialize().toString('hex')}`
