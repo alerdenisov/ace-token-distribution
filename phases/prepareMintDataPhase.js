@@ -9,7 +9,7 @@ export default class PrepareMintDataPhase extends Phase {
 
     state.mintData = mintSlice.reduce((acc, el) => {
       acc.accounts.push(el.wallet)
-      acc.amounts.push(el.amount)
+      acc.amounts.push(parseInt(el.amount))
       acc.id.push(el.id)
       el.state = MINT_STATES.MINTING
       return acc
