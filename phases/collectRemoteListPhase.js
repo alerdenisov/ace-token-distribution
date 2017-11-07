@@ -16,6 +16,8 @@ export default class CollectList extends Phase {
       list.forEach(el => {
         if (!el.id) return
 
+        el.amount = parseInt(el.amount)
+
         if(!accountCollection.getById(el.id).value()) {
           accountCollection.insert({
             state: MINT_STATES.NONE,
