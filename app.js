@@ -139,7 +139,7 @@ const commands = {
         context.log.err(JSON.stringify(error, null, 2))
       }
       else {
-        setTimeout(() => commands.loop(context), 1000)
+        setTimeout(() => commands.loop(context), 10)
       }
     } catch(error) {
       context.log.err(error)

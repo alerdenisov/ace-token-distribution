@@ -1,6 +1,8 @@
 import fetch from 'node-fetch'
 import Phase from './basePhase'
 
+function timeout(ms) {return new Promise(res => setTimeout(res, ms)) }
+
 export default class CollectList extends Phase {
   static get key() { return "collect-list" }
 
@@ -10,11 +12,21 @@ export default class CollectList extends Phase {
     
     if(listResponse.ok) 
     {
+      
       const list = await listResponse.json()
+      
+      if(!list.length) {
+        log.info('no more data from api (wait 10 sec before request)')
+        await timeout(10000)
+        return
+      }
+
       const accountCollection = db.get('accounts')
+
+      let count = 0
       
       list.forEach(el => {
-        if (!el.id) return
+        if (typeof el.id === 'undefined') return
 
         el.amount = Math.floor(el.amount)
 
@@ -23,10 +35,17 @@ export default class CollectList extends Phase {
             state: MINT_STATES.NONE,
             ...el
           }).write()
+          count++
         } else {
           log.verb(`Ignore duplicate id ${el.id}`)
         }
       })
+
+      if(!count) {
+        log.info('no more data from api (wait 10 sec before request)')
+        await timeout(10000)
+        return
+      }
     } 
     else 
     {
