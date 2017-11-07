@@ -25,7 +25,7 @@ export default class ReportMintingProcessPhase extends Phase {
           'Content-Type': 'application/json'
         },
         method: "POST",
-        body: report
+        body: JSON.stringify(report)
       })
 
       db.get('mintingHistory').updateById(mint.id, { reported: true }).write()
