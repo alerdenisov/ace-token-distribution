@@ -9,8 +9,8 @@ export default class MakeEthereumTxPhase extends Phase {
     const data = CONTRACT.methods.bulkMint(state.mintData.accounts, state.mintData.amounts).encodeABI()
     const privateKey = CONSTANTS.privateKey//
     
-    const gasLimit = utils.bufferToHex(4612388) // Gas limit used for deploys
-    const gasPrice = utils.bufferToHex(10000000000)
+    const gasLimit = utils.bufferToHex(CONSTANTS.gasLimit) // Gas limit used for deploys
+    const gasPrice = utils.bufferToHex(CONSTANTS.gasPrice)
     const nonce = utils.bufferToHex(await web3.eth.getTransactionCount(CONSTANTS.fromAddress))
 
     const rawTx = {
