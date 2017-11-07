@@ -13,16 +13,24 @@ export default class MakeEthereumTxPhase extends Phase {
     const gasPrice = utils.bufferToHex(CONSTANTS.gasPrice)
     const nonce = utils.bufferToHex(await web3.eth.getTransactionCount(CONSTANTS.fromAddress))
 
-    const rawTx = {
-      // call for nonce
-      nonce,
-      gasPrice,
-      gasLimit,
-      to,
-      data,
-    }
+    const tx = new ethTransaction(null, CONSTANTS.chainId)
+    tx.nonce = nonce
+    tx.gasLimit = gasLimit
+    tx.gasPrice = gasPrice
+    tx.to = to
+    tx.data = data
 
-    const tx = new ethTransaction(rawTx)
+    // const rawTx = {
+    //   // call for nonce
+    //   nonce,
+    //   gasPrice,
+    //   gasLimit,
+    //   to,
+    //   data,
+    // }
+
+    console.log(rawTx)
+
     tx.sign(privateKey)
 
     const raw = `0x${tx.serialize().toString('hex')}`
