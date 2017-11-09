@@ -10,21 +10,24 @@ export default class SendTransactionPhase extends Phase {
   static async execute({ state, web3, log, TX_STATES }) {
     log.info('Send ethereum tx')
 
-    let done, error, hash = null
+    let done, error, txHash = null
     state.pendingTx.state = TX_STATES.PENDING
 
     web3.eth.sendSignedTransaction(state.pendingTx.raw)
       .once('transactionHash', hash => {
         log.info(`tx hash ${hash}`)
-        hash = hash
+        if(!txHash && hash) {
+          txHash = hash
+        }
         done = true
         // throw new BreakSignal()
       })
       .once('receipt', receipt => {
-        log.info(`tx hash ${hash}`)
-        hash = receipt.transactionHash
+        log.info(`tx repeipt`)
+        if(!txHash && receipt.transactionHash) {
+          txHash = receipt.transactionHash
+        }
         done = true
-        // throw new BreakSignal()
       })
       .on('error', error => {
         log.info(`pending tx error ${error}`)
@@ -32,12 +35,17 @@ export default class SendTransactionPhase extends Phase {
         // throw new BreakSignal()
       })
       .on('confirmation', (conf, receipt) => {
-        hash = receipt.transactionHash
+        if(!txHash && receipt.transactionHash) {
+          txHash = receipt.transactionHash
+        }
         done = true
         // throw new BreakSignal()
       })
       .then(receipt => {
-        hash = receipt.transactionHash
+        if(!txHash && receipt.transactionHash) {
+          txHash = receipt.transactionHash
+        }
+
         log.verb(receipt)
         done = true
       })
@@ -46,10 +54,10 @@ export default class SendTransactionPhase extends Phase {
       await timeout(500)
     }
 
-    if (!hash) {
+    if (!txHash) {
       throw new Error('Hash of tx not received')
     }
-    
-    state.pendingTx.hash = hash
+
+    state.pendingTx.hash = txHash
   }
 }
