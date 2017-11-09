@@ -150,7 +150,7 @@ async function run() {
   const CONSTANTS = collectConstants()
   const web3 = new Web3(CONSTANTS.web3Endpoint)
   
-  const adapter = new FileSync(collectConstants.dbName)
+  const adapter = new FileSync(CONSTANTS.dbName)
   const db = lowdb(adapter)
 
   db._.mixin(lodashId)
