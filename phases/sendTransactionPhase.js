@@ -15,12 +15,14 @@ export default class SendTransactionPhase extends Phase {
 
     web3.eth.sendSignedTransaction(state.pendingTx.raw)
       .once('transactionHash', hash => {
+        log.info(`tx hash ${hash}`)
         hash = hash
         done = true
         // throw new BreakSignal()
       })
       .once('receipt', receipt => {
-        hash = hash
+        log.info(`tx hash ${hash}`)
+        hash = receipt.transactionHash
         done = true
         // throw new BreakSignal()
       })
@@ -38,16 +40,16 @@ export default class SendTransactionPhase extends Phase {
         hash = receipt.transactionHash
         log.verb(receipt)
         done = true
-        // throw new BreakSignal()
       })
-      // .catch(BreakSignal, () => {
-      //   log.info(`break tx listening ${hash}`)
-      // })
 
     while(!done && !error) {
       await timeout(500)
     }
 
+    if (!hash) {
+      throw new Error('Hash of tx not received')
+    }
+    
     state.pendingTx.hash = hash
   }
 }
