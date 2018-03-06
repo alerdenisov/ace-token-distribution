@@ -101,7 +101,10 @@ const commands = {
     const gasPrice = utils.bufferToHex(CONSTANTS.gasPrice)
     const nonce = utils.bufferToHex(await web3.eth.getTransactionCount(CONSTANTS.fromAddress))
 
-    const tx = new ethTransaction(null, CONSTANTS.chainId)
+    const tx = new ethTransaction(null)
+    if (CONSTANTS.chainId) {
+      tx.chainId = CONSTANTS.chainId
+    }
     tx.nonce = nonce
     tx.gasLimit = gasLimit
     tx.gasPrice = gasPrice
