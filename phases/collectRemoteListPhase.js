@@ -32,8 +32,8 @@ export default class CollectList extends Phase {
 
         if(!accountCollection.getById(el.id).value()) {
           accountCollection.insert({
-            state: MINT_STATES.NONE,
-            ...el
+            ...el,
+            state: MINT_STATES.NONE
           }).write()
           count++
         } else {
