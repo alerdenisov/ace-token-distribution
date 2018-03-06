@@ -8,6 +8,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -24,5 +25,9 @@
     "lowdb": "^1.0.0",
     "node-fetch": "^1.7.3",
     "web3": "^1.0.0-beta.24"
+  },
+  "devDependencies": {
+    "fastify": "^1.0.0-rc.3",
+    "fastify-caching": "^2.0.3"
   }
 }
